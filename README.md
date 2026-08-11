@@ -28,3 +28,5 @@ La app queda en http://localhost:5173
 | `npm run build`  | Compila para producción     |
 | `npm run lint`   | Revisa el código con ESLint |
 | `npm run format` | Formatea con Prettier       |
+
+kanban-board-rous1.vercel.app
