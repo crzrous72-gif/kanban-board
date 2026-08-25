@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
-import { EllipsisVertical, Pencil, Plus, Trash2 } from 'lucide-react'
+import type { DraggableAttributes } from '@dnd-kit/core'
+import type { SyntheticListenerMap } from '@dnd-kit/core/dist/hooks/utilities'
+import { EllipsisVertical, GripVertical, Pencil, Plus, Trash2 } from 'lucide-react'
 import { useBoardStore } from '../../store/useBoardStore'
 import { useUiStore } from '../../store/useUiStore'
 import { COLORES_COLUMNA } from '../../lib/constants'
@@ -10,9 +12,13 @@ type ColumnHeaderProps = {
   title: string
   color?: string
   count: number
+  arrastre: {
+    attributes: DraggableAttributes
+    listeners: SyntheticListenerMap | undefined
+  }
 }
 
-export function ColumnHeader({ columnId, title, color, count }: ColumnHeaderProps) {
+export function ColumnHeader({ columnId, title, color, count, arrastre }: ColumnHeaderProps) {
   const deleteColumn = useBoardStore((s) => s.deleteColumn)
   const abrirModal = useUiStore((s) => s.abrirModal)
   const pedirConfirmacion = useUiStore((s) => s.pedirConfirmacion)
@@ -47,15 +53,27 @@ export function ColumnHeader({ columnId, title, color, count }: ColumnHeaderProp
       mensaje:
         count === 0
           ? `Se eliminará la columna «${title}».`
-          : `Se eliminará la columna «${title}» y ${count === 1 ? 'su única tarea' : `sus ${count} tareas`}. Esta acción no se puede deshacer.`,
+          : `Se eliminará la columna «${title}» y ${
+              count === 1 ? 'su única tarea' : `sus ${count} tareas`
+            }. Esta acción no se puede deshacer.`,
       textoConfirmar: 'Eliminar',
       onConfirm: () => deleteColumn(columnId),
     })
   }
 
   return (
-    <header className="flex items-center justify-between gap-2 px-1 pb-3">
-      <div className="flex min-w-0 items-center gap-2">
+    <header className="flex items-center justify-between gap-1 px-1 pb-3">
+      <div className="flex min-w-0 items-center gap-1">
+        <button
+          type="button"
+          aria-label={`Mover la columna ${title}`}
+          className="cursor-grab touch-none rounded-md p-1 text-suave transition hover:bg-borde focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-titulo"
+          {...arrastre.attributes}
+          {...arrastre.listeners}
+        >
+          <GripVertical size={14} aria-hidden="true" />
+        </button>
+
         <span className={`size-2.5 shrink-0 rounded-full ${claseColor}`} aria-hidden="true" />
         <h2 className="truncate text-sm font-semibold text-titulo">{title}</h2>
         <span className="shrink-0 rounded-full bg-borde px-2 py-0.5 text-xs font-medium text-suave">
