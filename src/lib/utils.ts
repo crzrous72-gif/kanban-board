@@ -10,3 +10,11 @@ export function normalizarOrden(tasks: Task[], columnId: string): Task[] {
 
   return [...resto, ...enLaColumna]
 }
+
+export function formatearFecha(iso: string): string {
+  const [year, month, day] = iso.slice(0, 10).split('-').map(Number)
+  return new Date(year, month - 1, day).toLocaleDateString('es-ES', {
+    day: 'numeric',
+    month: 'short',
+  })
+}
