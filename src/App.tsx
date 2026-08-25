@@ -1,14 +1,26 @@
-import { useBoardStore } from './store/useBoardStore'
+import { Board } from './components/board/Board'
+import { ColumnModal } from './components/modals/ColumnModal'
+import { ConfirmDialog } from './components/modals/ConfirmDialog'
+import { TaskModal } from './components/modals/TaskModal'
+import { useUiStore } from './store/useUiStore'
 
 function App() {
-  const columns = useBoardStore((s) => s.columns)
+  const modal = useUiStore((s) => s.modal)
 
   return (
-    <main className="min-h-screen flex items-center justify-center bg-slate-100">
-      <h1 className="text-3xl font-bold text-red-500">
-        Kanban Board — {columns.length} {columns.length === 1 ? 'columna' : 'columnas'}
-      </h1>
-    </main>
+    <div className="min-h-screen bg-tablero">
+      <header className="px-4 pt-6 pb-4">
+        <h1 className="text-xl font-semibold text-titulo">Kanban Board</h1>
+        <p className="text-sm text-suave">Tablero de tareas</p>
+      </header>
+
+      <Board />
+
+      {modal?.tipo === 'tarea' && <TaskModal columnId={modal.columnId} taskId={modal.taskId} />}
+      {modal?.tipo === 'columna' && <ColumnModal columnId={modal.columnId} />}
+
+      <ConfirmDialog />
+    </div>
   )
 }
 

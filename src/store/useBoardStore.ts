@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import type { BoardState, Column, Task } from '../types'
-import { DEFAULT_COLUMNS } from '../lib/constants'
+import { DEFAULT_COLUMNS, SAMPLE_TASKS } from '../lib/constants'
 import { normalizarOrden } from '../lib/utils'
 
 type NuevaTarea = Omit<Task, 'id' | 'columnId' | 'order' | 'createdAt'>
@@ -21,8 +21,7 @@ export const useBoardStore = create<BoardStore>()(
   persist(
     (set) => ({
       columns: DEFAULT_COLUMNS,
-      tasks: [],
-
+      tasks: SAMPLE_TASKS,
       addColumn: (title) =>
         set((state) => ({
           columns: [

@@ -1,7 +1,95 @@
-import type { Column } from '../types'
+import type { Column, Task } from '../types'
+
+export const COLORES_COLUMNA = {
+  gris: 'bg-slate-400',
+  azul: 'bg-sky-400',
+  ambar: 'bg-amber-400',
+  verde: 'bg-emerald-400',
+  violeta: 'bg-violet-400',
+  rojo: 'bg-rose-400',
+} as const
 
 export const DEFAULT_COLUMNS: Column[] = [
-  { id: 'todo', title: 'Por hacer', order: 0 },
-  { id: 'doing', title: 'En progreso', order: 1 },
-  { id: 'done', title: 'Hecho', order: 2 },
+  { id: 'todo', title: 'Por hacer', order: 0, color: 'gris' },
+  { id: 'doing', title: 'En progreso', order: 1, color: 'ambar' },
+  { id: 'done', title: 'Hecho', order: 2, color: 'verde' },
+]
+
+export const SAMPLE_TASKS: Task[] = [
+  {
+    id: 't1',
+    title: 'Leer la documentación de dnd-kit',
+    description: 'Entender DndContext, useSortable y useDroppable antes de escribir código.',
+    priority: 'high',
+    labels: ['docs'],
+    dueDate: '2026-08-20',
+    columnId: 'todo',
+    order: 0,
+    createdAt: '2026-08-01T10:00:00.000Z',
+  },
+  {
+    id: 't2',
+    title: 'Diseñar los estados vacíos',
+    priority: 'low',
+    labels: ['diseño'],
+    columnId: 'todo',
+    order: 1,
+    createdAt: '2026-08-01T10:05:00.000Z',
+  },
+  {
+    id: 't3',
+    title: 'Definir la paleta de colores',
+    priority: 'medium',
+    labels: ['diseño', 'tokens'],
+    columnId: 'todo',
+    order: 2,
+    createdAt: '2026-08-01T10:10:00.000Z',
+  },
+  {
+    id: 't4',
+    title: 'Montar los componentes del tablero',
+    description: 'Board, Column, ColumnHeader y TaskCard.',
+    priority: 'high',
+    labels: ['dev'],
+    columnId: 'doing',
+    order: 0,
+    createdAt: '2026-08-02T09:00:00.000Z',
+  },
+  {
+    id: 't5',
+    title: 'Revisar el responsive en 375 px',
+    priority: 'medium',
+    labels: ['diseño', 'qa'],
+    dueDate: '2026-08-18',
+    columnId: 'doing',
+    order: 1,
+    createdAt: '2026-08-02T09:30:00.000Z',
+  },
+  {
+    id: 't6',
+    title: 'Configurar el store con Zustand',
+    priority: 'high',
+    labels: ['dev'],
+    columnId: 'done',
+    order: 0,
+    createdAt: '2026-08-03T11:00:00.000Z',
+  },
+  {
+    id: 't7',
+    title: 'Desplegar en Vercel',
+    priority: 'medium',
+    labels: ['infra'],
+    columnId: 'done',
+    order: 1,
+    createdAt: '2026-08-03T11:20:00.000Z',
+  },
+  {
+    id: 't8',
+    title: 'Escribir el README',
+    priority: 'low',
+    labels: ['docs'],
+    columnId: 'done',
+    order: 2,
+    createdAt: '2026-08-03T11:40:00.000Z',
+  },
 ]

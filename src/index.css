@@ -1,1 +1,17 @@
 @import 'tailwindcss';
+
+@theme {
+  --color-tablero: #eef1f6;
+  --color-columna: #f8fafc;
+  --color-tarjeta: #ffffff;
+  --color-borde: #e2e8f0;
+  --color-titulo: #0f172a;
+  --color-suave: #64748b;
+
+  --color-baja: #475569;
+  --color-baja-suave: #f1f5f9;
+  --color-media: #b45309;
+  --color-media-suave: #fef3c7;
+  --color-alta: #b91c1c;
+  --color-alta-suave: #fee2e2;
+}
